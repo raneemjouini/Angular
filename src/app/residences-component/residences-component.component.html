@@ -1,0 +1,37 @@
+<h2>Liste des résidences</h2>
+
+
+<input
+  type="text"
+  [(ngModel)]="search"
+  (input)="filterResidences()"  
+  placeholder="Rechercher par adresse..."
+  style="margin-bottom: 20px; padding: 5px; width: 300px;"
+/>
+
+<ul>
+  <li *ngFor="let residence of filteredResidences">
+    <h3>{{ residence.name }}</h3>
+    <img [src]="residence.image" alt="{{ residence.name }}" width="150" height="100">
+    <p>Status: 
+      <span *ngIf="residence.status === 'Disponible'" style="color: green;">
+        ✅ Disponible
+      </span>
+      <span *ngIf="residence.status === 'En Construction'" style="color: orange;">
+        🚧 En Construction
+      </span>
+      <span *ngIf="residence.status === 'Vendu'" style="color: red;">
+        ❌ Vendu
+      </span>
+    </p>
+    <button (click)="showLocation(residence)">Show Location</button>
+    <button (click)="likeResidence(residence)">Like ❤️</button>
+  </li>
+</ul>
+
+<h2>Favoris</h2>
+<ul *ngIf="favoriteResidences.length > 0">
+  <li *ngFor="let favorite of favoriteResidences">
+    <p>{{ favorite.name }}</p>
+  </li>
+</ul>
